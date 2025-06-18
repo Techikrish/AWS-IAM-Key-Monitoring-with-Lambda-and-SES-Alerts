@@ -171,7 +171,7 @@ iam-key-monitor/
 
 Below is a screenshot of a successful email alert received during testing:
 
-![Email Alert](screenshots/got-mail.png)
+![Email Alert](got-mail.png)
 
 Email Alert
 
