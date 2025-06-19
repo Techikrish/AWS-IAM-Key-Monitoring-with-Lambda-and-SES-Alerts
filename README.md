@@ -2,7 +2,6 @@
 
 This project automates IAM access key monitoring to enhance AWS account security. The Lambda function, written in Python, uses `boto3` to check IAM keys and sends email alerts via SES when issues are detected. Terraform deploys the Lambda, IAM role, and EventBridge schedule for daily execution. Alerts are sent to a configured email address, ensuring timely action to rotate or deactivate problematic keys.
 
-
 ## Features
 
 - **Monitors IAM Access Keys** for:
@@ -35,15 +34,12 @@ iam-key-monitor/
 ├── variables.tf            # Terraform input variables
 ├── outputs.tf              # Terraform outputs
 ├── terraform.tfvars        # Terraform variable values (gitignored)
-├── screenshots/            # Directory for screenshots
-│   └── email_alert.png     # Screenshot of SES email alert
 └── README.md               # Project documentation
 ```
 
 - **`lambda_function.py`**: Monitors IAM keys and sends SES alerts.
 - **`main.tf`**: Defines AWS resources (Lambda, IAM role, EventBridge).
 - **`terraform.tfvars`**: Configures sender/recipient emails and thresholds.
-- **`screenshots/`**: Contains the email alert screenshot.
 
 ## Setup Instructions
 
@@ -106,7 +102,7 @@ iam-key-monitor/
         ```
         
     - Replace `sender_email` and `recipient_email` with your SES-verified emails.
-    - Add `terraform.tfvars` to `.gitignore` to avoid committing sensitive data.
+    - Add `terraform.tfvars`
 
 ### Deploy with Terraform
 
@@ -147,6 +143,9 @@ iam-key-monitor/
         - Event Name: `TestIAMKeyMonitor`
         - JSON: `{}`
     - Click **Test** and check **Execution Results**.
+    
+    ![alert issue.PNG](alert_issue.png)
+    
 3. **Check Email Alert**:
     - Open `security@yourcompany.com`’s inbox.
     - Look for an email from `alerts@yourcompany.com` with subject “IAM Access Key Monitoring Alert”.
@@ -159,21 +158,15 @@ iam-key-monitor/
         User: test-key-user, Key ID: AKIA..., Age: 0 days
         ```
         
-    - See screenshot in [Screenshots](about:blank#screenshots).
+    
+    ![got-mail.PNG](got-mail.png)
+    
 4. **Test Other Conditions**:
     - **Old Keys**: Set `max_key_age=0` in `terraform.tfvars`, run `terraform apply`, and retest.
     - **Inactive Keys**: Deactivate the key in **IAM** > `test-key-user` > **Security Credentials**.
     - **Unused Keys**: Use the key (e.g., `aws s3 ls`), set `max_unused_days=0`, and reapply.
 5. **Check Logs**:
     - Go to **CloudWatch** > **Log Groups** > `/aws/lambda/IAMKeyMonitor` for execution details.
-
-## Screenshots
-
-Below is a screenshot of a successful email alert received during testing:
-
-![Email Alert](got-mail.png)
-
-Email Alert
 
 ## Troubleshooting
 
@@ -195,4 +188,3 @@ Email Alert
 ## 
 
 ---
-
