@@ -144,7 +144,7 @@ iam-key-monitor/
         - JSON: `{}`
     - Click **Test** and check **Execution Results**.
     
-    ![alert issue.PNG](alert_issue.png)
+    ![alert-issue.png](alert-issue.png)
     
 3. **Check Email Alert**:
     - Open `security@yourcompany.com`’s inbox.
@@ -159,7 +159,7 @@ iam-key-monitor/
         ```
         
     
-    ![got-mail.PNG](got-mail.png)
+    ![got-mail1.png](got-mail1.png)
     
 4. **Test Other Conditions**:
     - **Old Keys**: Set `max_key_age=0` in `terraform.tfvars`, run `terraform apply`, and retest.
